@@ -1,0 +1,62 @@
+#number of parallel build executors
+BB_NUMBER_THREADS = "${@oe.utils.cpu_count()}"
+PARALLEL_MAKE="-j ${@oe.utils.cpu_count()}"
+
+#
+# Machine Selection
+#
+# You need to select a specific machine to target the build with. There are a selection
+# of emulated machines available which can boot and run in the QEMU emulator:
+#
+#MACHINE ?= "qemuarm"
+#MACHINE ?= "qemuarm64"
+#MACHINE ?= "qemumips"
+#MACHINE ?= "qemumips64"
+#MACHINE ?= "qemuppc"
+#MACHINE ?= "qemux86"
+#MACHINE ?= "qemux86-64"
+#
+# There are also the following hardware board target machines included for
+# demonstration purposes:
+#
+#MACHINE ?= "beaglebone-yocto"
+#MACHINE ?= "genericx86"
+#MACHINE ?= "genericx86-64"
+#MACHINE ?= "mpc8315e-rdb"
+#MACHINE ?= "edgerouter"
+#
+#The choices for MACHINE are
+#raspberrypi (BCM2835)
+#raspberrypi0 (BCM2835)
+#raspberrypi0-wifi (BCM2835)
+#raspberrypi2 (BCM2836 or BCM2837 v1.2+)
+#raspberrypi3 (BCM2837)
+#raspberrypi4 (BCM2838)
+#raspberrypi-cm (BCM2835)
+#raspberrypi-cm3 (BCM2837)
+
+IMAGE_FSTYPES = "tar.xz ext3"
+# This sets the default machine to be qemux86 for this demo:
+MACHINE = "qemuarm"
+
+#This sets raspberry pi machine; also set IMAGE_FSTYPES to include rpi-sdimg additional
+#MACHINE = "raspberrypi"
+#Create raspberry-pi sd-card images to be placed on PI directly.
+#IMAGE_FSTYPES += " rpi-sdimg"
+
+
+# The distribution setting controls which policy settings are used as defaults.
+# The default value is fine for general Yocto project use, at least initially.
+# Ultimately when creating custom policy, people will likely end up subclassing
+# these defaults.
+DISTRO = "poky"
+
+#Replace SystemV with Systemd init.
+DISTRO_FEATURES_append = " systemd"
+VIRTUAL-RUNTIME_init_manager = "systemd"
+DISTRO_FEATURES_BACKFILL_CONSIDERED = "sysvinit"
+VIRTUAL-RUNTIME_initscripts = ""
+
+#user password alten:
+INHERIT += "extrausers"
+EXTRA_USERS_PARAMS = "usermod -P alten root; "

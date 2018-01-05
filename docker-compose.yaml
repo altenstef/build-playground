@@ -1,0 +1,11 @@
+version: '3'
+services:
+  playground:
+    build: 
+      context: .
+      dockerfile: ./Dockerfile
+    container_name: playground
+    privileged: true
+    volumes:
+      - ./build-folder/:/opt/build-directory/
+
