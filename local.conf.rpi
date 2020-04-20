@@ -8,23 +8,6 @@ PARALLEL_MAKE="-j ${@oe.utils.cpu_count()}"
 # You need to select a specific machine to target the build with. There are a selection
 # of emulated machines available which can boot and run in the QEMU emulator:
 #
-#MACHINE ?= "qemuarm"
-#MACHINE ?= "qemuarm64"
-#MACHINE ?= "qemumips"
-#MACHINE ?= "qemumips64"
-#MACHINE ?= "qemuppc"
-#MACHINE ?= "qemux86"
-#MACHINE ?= "qemux86-64"
-#
-# There are also the following hardware board target machines included for
-# demonstration purposes:
-#
-#MACHINE ?= "beaglebone-yocto"
-#MACHINE ?= "genericx86"
-#MACHINE ?= "genericx86-64"
-#MACHINE ?= "mpc8315e-rdb"
-#MACHINE ?= "edgerouter"
-#
 #The choices for MACHINE are
 #raspberrypi (BCM2835)
 #raspberrypi0 (BCM2835)
@@ -36,7 +19,8 @@ PARALLEL_MAKE="-j ${@oe.utils.cpu_count()}"
 #raspberrypi-cm3 (BCM2837)
 
 #This sets raspberry pi machine; also set IMAGE_FSTYPES to include rpi-sdimg additional
-MACHINE = "raspberrypi"
+MACHINE = "raspberrypi4"
+#MACHINE = "raspberrypi"
 #MACHINE = "raspberrypi0"
 #MACHINE = "raspberrypi0-wifi"
 #MACHINE = "raspberrypi2"
@@ -47,7 +31,6 @@ MACHINE = "raspberrypi"
 
 #Create raspberry-pi sd-card images to be placed on PI directly.
 IMAGE_FSTYPES += " rpi-sdimg"
-
 
 # The distribution setting controls which policy settings are used as defaults.
 # The default value is fine for general Yocto project use, at least initially.

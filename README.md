@@ -3,28 +3,27 @@
 Simple dockerized build environment for the **Alten Yocto Playground** held on june 2nd in Apeldoorn.
 
 # Pre-requirements
-**linux distribution** (e.g. Ubuntu 16.04)<br>
-	- Can be a VM, notice that building time is depending on HW resources So having Multiple CPU Cores, free RAM and enough (40GB+) space speeds up the process.
+**linux distribution** (e.g. Ubuntu 16.04)
+  Can also be a VM (notice that building time is depending on HW resources So having Multiple CPU Cores, free RAM and enough (**40GB+**) space speeds up the process.)
 
 **Git**<br>
 install git:
-        ```
-	    sudo apt-get install git
-        ```
+```
+sudo apt-get install git
+```
 
 **Docker**: <br>
 Install Docker && docker compose:
-            https://docs.docker.com/install/
-            https://docs.docker.com/compose/install/
+https://docs.docker.com/install/
+https://docs.docker.com/compose/install/
 
 **This archive**:<br>
 ```
-mkdir playground
 git clone https://github.com/altenstef/build-playground.git
 cd build-playground
 ```
 
-# Determine Build-Target:
+# Determine Build-Target [RPI | EMULATOR]:
 
 Decide if you want to build for either **QEMU** (Emulator) or a **Raspberry PI**.<br>
 - For **QEMU** you have to do nothing, the local.conf is default setup for qemu (if changed restore with local.conf.qemu)<br>
@@ -42,15 +41,11 @@ Decide if you want to build for either **QEMU** (Emulator) or a **Raspberry PI**
     MACHINE = "raspberrypi-cm3"<br>
 
 # Start using Docker & start build:
-!Note that i'm no docker expert, this is just for reproducibility and to speed up the getting started !<br>
-<br>
-Create build-folder and change ownership to docker-user with your UID & GID (example is UID 1000):
-Change the UID in the chown command as shown below, and in the Dockerfile (https://github.com/altenstef/build-playground/blob/master/Dockerfile#L8)
-```
-mkdir build-folder
-sudo chown 1000:1000 build-folder/ -R
-```
-bring up the docker image & container:
+!Note that i'm no docker expert, this is just for reproducibility and to speed up the getting started !
+
+Change the UID in the Dockerfile (https://github.com/altenstef/build-playground/blob/master/Dockerfile#L8) if it isn't the default (1000). Use command id to determine your user ID
+
+From the playground git archive directory, bring up the docker image & container:
 ```
 docker-compose build
 docker-compose up -d
@@ -81,7 +76,8 @@ source oe-init-build-env
 bitbake playground-image
 ```
 
-The bitbake command might take a few hours (depending on the speed of your build-system). For reference; on my i5 (4 threads) it took ~3 hours. Warnings can appear, i'll try to explain them in the playground itself.
+The bitbake command might take a few hours (depending on the speed of your build-system). For reference; on my i5 (4 threads) it took ~3 hours. Warnings can appear, i'll try to explain them in the playground itself. Take also in account that the build must keep network enabled (keep laptop for instance powered).
+
 The build is finished when the console returns and the following is printed:
 
 ```
@@ -90,6 +86,12 @@ Sstate summary: Wanted 0 Found 0 Missed 0 Current 1169 (0% match, 100% complete)
 NOTE: Executing Tasks
 NOTE: Setscene tasks completed
 NOTE: Tasks Summary: Attempted 3358 tasks of which 3358 didn't need to be rerun and all succeeded.
+```
+
+### Running into Issues: ###
+if you run into any problems / issue's, please provide the logging from the following command to me:
+```
+docker-compose logs
 ```
 
 ## QEMU - Emulator:
@@ -130,3 +132,9 @@ Press Ctrl + A, release them and press x.
 
 ## PI:
 If you have chosen the RPI image, you can test with copying the sdcard.img on an SD card and insert it into a raspberry PI.
+TODO
+
+#TODO's:
+- Update PI sd card creation and test
+- Remove qemu machine? e.g. run pi image?
+- 
