@@ -47,3 +47,6 @@ VIRTUAL-RUNTIME_initscripts = ""
 #user password alten:
 INHERIT += "extrausers"
 EXTRA_USERS_PARAMS = "usermod -P alten root; "
+
+#I want a uart for possible debugging purposes
+ENABLE_UART = "1"
